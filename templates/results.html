@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+        .result-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .result-item {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .result-item h3 {
+            margin-top: 0;
+        }
+        .result-item p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo">
+            <h1>Search Results</h1>
+        </div>
+
+        {% if locations %}
+            <h2>Closest Locations:</h2>
+            <ul class="result-list">
+                {% for location in locations %}
+                    <li class="result-item">
+                        <h3>{{ location['Name of Location'] }}</h3>
+                        <p><strong>Address:</strong> {{ location['Address'] }}</p>
+                        <p><strong>City:</strong> {{ location['City'] }}</p>
+                        <p><strong>State:</strong> {{ location['State'] }}</p>
+                        <p><strong>Website:</strong> <a href="{{ location['Website'] }}" target="_blank">{{ location['Website'] }}</a></p>
+                        <p><strong>Phone Number:</strong> {{ location['Phone Number'] }}</p>
+                        <p><strong>Distance:</strong> {{ location['Distance'] }} miles</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No locations found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
